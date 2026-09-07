@@ -35,14 +35,14 @@ const HomeTab = () => {
   return (
     <div className="flex flex-col items-center pb-8">
       {/* Hero Image Section */}
-      <div className="w-full h-[65vh] relative overflow-hidden rounded-b-[40px] shadow-lg">
+      <div className="w-full relative overflow-hidden rounded-b-[40px] shadow-lg min-h-[75vh] flex flex-col justify-center">
         <div className="absolute inset-0 bg-black/40 z-10"></div>
         <img 
           src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800" 
           alt="Couple holding hands" 
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-white text-center p-6">
+        <div className="relative z-20 flex flex-col items-center justify-center text-white text-center px-6 pt-16 pb-20">
           <motion.h4 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
