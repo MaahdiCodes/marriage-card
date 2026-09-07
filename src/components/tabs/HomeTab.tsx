@@ -63,11 +63,15 @@ const HomeTab = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="mt-6 text-[9px] font-sans text-white/80 uppercase tracking-widest leading-relaxed px-4"
+            className="mt-6 text-sm md:text-base font-serif text-white/90 leading-relaxed text-center px-6"
           >
-            Son of Md Mukaddes Ali & Anwara Begum Rani<br/>
-            <span className="text-brand-gold mx-2">|</span><br/>
-            Daughter of Md. Humayun Kabir & Rasheda Parvin Bina
+            <span className="text-brand-gold italic text-xs md:text-sm">Son of</span><br/>
+            Md Mukaddes Ali & Anwara Begum Rani
+            
+            <div className="my-3 w-8 h-[1px] bg-brand-gold/50 mx-auto"></div>
+            
+            <span className="text-brand-gold italic text-xs md:text-sm">Daughter of</span><br/>
+            Md. Humayun Kabir & Rasheda Parvin Bina
           </motion.div>
           <motion.div 
             initial={{ opacity: 0 }}
