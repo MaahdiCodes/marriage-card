@@ -8,7 +8,7 @@ const EventsTab = () => {
       title: 'Mehendi Night',
       date: 'October 18, 2026',
       venue: 'Bride\'s Residence, Languljura',
-      notes: 'Join us for a vibrant night of music, dance, and beautiful henna.',
+      notes: 'Join us for a vibrant night of joy, celebration, and beautiful henna.',
       color: 'bg-emerald-50 border-emerald-100 text-emerald-900',
       badge: 'bg-emerald-100 text-emerald-800'
     },
@@ -35,7 +35,7 @@ const EventsTab = () => {
       title: 'Reception',
       date: 'October 21, 2026',
       venue: 'Rani Community Center',
-      notes: 'Dinner and celebrations hosted by the Groom\'s family.',
+      notes: 'Lunch and celebrations hosted by the Groom\'s family.',
       color: 'bg-indigo-50 border-indigo-100 text-indigo-900',
       badge: 'bg-indigo-200 text-indigo-800'
     }
