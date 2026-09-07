@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navigation from './components/Navigation';
 import HomeTab from './components/tabs/HomeTab';
@@ -11,6 +11,14 @@ export type TabType = 'home' | 'story' | 'events' | 'venue' | 'rsvp';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Reset scroll position when tab changes
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo(0, 0);
+    }
+  }, [activeTab]);
 
   const renderTab = () => {
     switch (activeTab) {
@@ -29,7 +37,11 @@ function App() {
       <div className="w-full h-[100dvh] md:h-[850px] md:max-h-[90vh] md:w-[400px] bg-zinc-50 md:rounded-[40px] md:shadow-2xl overflow-hidden relative border-0 md:border-[8px] border-zinc-800 flex flex-col">
         
         {/* Main Content Area */}
-        <div className="flex-1 overflow-y-auto pb-20 relative bg-zinc-50" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto pb-20 relative bg-zinc-50" 
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
           <style>{`
             .flex-1::-webkit-scrollbar {
               display: none;
