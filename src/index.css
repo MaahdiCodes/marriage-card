@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-gold: #D4AF37;
+  --color-brand-gold-dark: #b89528;
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  html, body {
+    @apply bg-zinc-50 text-zinc-900 font-sans antialiased h-full w-full overflow-hidden;
+  }
+  
+  #root {
+    @apply h-full w-full;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
