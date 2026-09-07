@@ -39,7 +39,7 @@ function App() {
         {/* Main Content Area */}
         <div 
           ref={scrollContainerRef}
-          className="flex-1 overflow-y-auto pb-20 relative bg-zinc-50" 
+          className="flex-1 overflow-y-auto pb-32 relative bg-zinc-50" 
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           <style>{`

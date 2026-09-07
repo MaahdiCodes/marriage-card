@@ -16,7 +16,7 @@ const Navigation = ({ activeTab, setActiveTab }: NavigationProps) => {
   ];
 
   return (
-    <div className="absolute bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-zinc-200 px-4 pt-3 pb-6 md:pb-3 flex justify-between items-center z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+    <div className="absolute bottom-0 w-full bg-white/90 backdrop-blur-md border-t border-zinc-200 px-4 pt-3 pb-10 md:pb-4 flex justify-between items-center z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = activeTab === item.id;
