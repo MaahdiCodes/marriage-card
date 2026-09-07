@@ -4,6 +4,7 @@ import { Send, CheckCircle2 } from 'lucide-react';
 
 const RSVPTab = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -13,12 +14,38 @@ const RSVPTab = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitted(true);
-    }, 600);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // TODO: Replace with your actual Web3Forms Access Key
+          access_key: "b13e4c90-86d0-4cb9-a672-ccd9de5e98a8",
+          subject: `New RSVP: ${formData.name} is ${formData.attending === 'yes' ? 'Attending' : 'Not Attending'}`,
+          from_name: "Wedding RSVP System",
+          ...formData
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        alert("Something went wrong! Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Network error! Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -55,9 +82,9 @@ const RSVPTab = () => {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Full Name</label>
-                <input 
+                <input
                   required
-                  type="text" 
+                  type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
@@ -68,9 +95,9 @@ const RSVPTab = () => {
 
               <div>
                 <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Phone / WhatsApp</label>
-                <input 
+                <input
                   required
-                  type="tel" 
+                  type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -82,7 +109,7 @@ const RSVPTab = () => {
               <div className="flex gap-4">
                 <div className="flex-1">
                   <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Attending?</label>
-                  <select 
+                  <select
                     name="attending"
                     value={formData.attending}
                     onChange={handleChange}
@@ -92,11 +119,11 @@ const RSVPTab = () => {
                     <option value="no">Regretfully Decline</option>
                   </select>
                 </div>
-                
+
                 {formData.attending === 'yes' && (
                   <div className="flex-1">
                     <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Guests</label>
-                    <select 
+                    <select
                       name="guests"
                       value={formData.guests}
                       onChange={handleChange}
@@ -114,8 +141,8 @@ const RSVPTab = () => {
               {formData.attending === 'yes' && (
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Dietary Requirements</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="dietary"
                     value={formData.dietary}
                     onChange={handleChange}
@@ -127,7 +154,7 @@ const RSVPTab = () => {
 
               <div>
                 <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Message for the Couple</label>
-                <textarea 
+                <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -137,12 +164,13 @@ const RSVPTab = () => {
                 ></textarea>
               </div>
 
-              <button 
+              <button
                 type="submit"
-                className="w-full bg-zinc-900 text-white font-sans text-sm tracking-widest font-semibold uppercase py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-zinc-800 transition-colors mt-4"
+                disabled={isSubmitting}
+                className="w-full bg-zinc-900 text-white font-sans text-sm tracking-widest font-semibold uppercase py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-zinc-800 transition-colors mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Send RSVP
-                <Send size={16} />
+                {isSubmitting ? 'Sending...' : 'Send RSVP'}
+                {!isSubmitting && <Send size={16} />}
               </button>
             </form>
           </motion.div>
@@ -158,12 +186,12 @@ const RSVPTab = () => {
             </div>
             <h3 className="text-2xl font-serif text-zinc-800 mb-3">Thank You!</h3>
             <p className="text-zinc-500 font-sans leading-relaxed">
-              {formData.attending === 'yes' 
+              {formData.attending === 'yes'
                 ? `We are so excited to celebrate with you, ${formData.name.split(' ')[0]}!`
                 : `We will miss you, ${formData.name.split(' ')[0]}. Thank you for letting us know.`
               }
             </p>
-            <button 
+            <button
               onClick={() => setIsSubmitted(false)}
               className="mt-8 text-sm text-brand-gold hover:text-brand-gold-dark uppercase tracking-widest font-semibold"
             >
