@@ -6,7 +6,8 @@ const HomeTab = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const targetDate = new Date('2026-10-20T00:00:00').getTime();
+    // Month is 0-indexed in JS (9 = October). This is safer for mobile browsers.
+    const targetDate = new Date(2026, 9, 20, 0, 0, 0).getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
