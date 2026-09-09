@@ -9,6 +9,8 @@ const RSVPTab = () => {
     name: '',
     phone: '',
     attending: 'yes',
+    events: 'Both (Oct 20 & 21)',
+    accommodation: 'No',
     guests: '1',
     dietary: '',
     message: ''
@@ -28,7 +30,7 @@ const RSVPTab = () => {
         body: JSON.stringify({
           // TODO: Replace with your actual Web3Forms Access Key
           access_key: "b13e4c90-86d0-4cb9-a672-ccd9de5e98a8",
-          subject: `New RSVP: ${formData.name} is ${formData.attending === 'yes' ? 'Attending' : 'Not Attending'}`,
+          subject: `New RSVP: ${formData.name} is ${formData.attending === 'yes' ? 'Attending ' + formData.events : 'Not Attending'}`,
           from_name: "Wedding RSVP System",
           ...formData
         }),
@@ -139,17 +141,46 @@ const RSVPTab = () => {
               </div>
 
               {formData.attending === 'yes' && (
-                <div>
-                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Dietary Requirements</label>
-                  <input
-                    type="text"
-                    name="dietary"
-                    value={formData.dietary}
-                    onChange={handleChange}
-                    className="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
-                    placeholder="e.g. Vegetarian, Nut Allergy (Optional)"
-                  />
-                </div>
+                <>
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Which events will you attend?</label>
+                    <select
+                      name="events"
+                      value={formData.events}
+                      onChange={handleChange}
+                      className="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors appearance-none"
+                    >
+                      <option value="Both (Oct 20 & 21)">Both Events (Oct 20 & 21)</option>
+                      <option value="Reception Only (Oct 21)">Reception Only (Oct 21 - Main Event)</option>
+                      <option value="Wedding Only (Oct 20)">Wedding Only (Oct 20)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Do you require accommodation?</label>
+                    <select
+                      name="accommodation"
+                      value={formData.accommodation}
+                      onChange={handleChange}
+                      className="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors appearance-none"
+                    >
+                      <option value="No">No, I'll arrange my own / I'm local</option>
+                      <option value="Yes">Yes, please arrange accommodation</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Dietary Requirements</label>
+                    <input
+                      type="text"
+                      name="dietary"
+                      value={formData.dietary}
+                      onChange={handleChange}
+                      className="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
+                      placeholder="e.g. Vegetarian, Nut Allergy (Optional)"
+                    />
+                  </div>
+                </>
               )}
 
               <div>
