@@ -20,14 +20,14 @@ const RSVPTab = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // 1. Send Email Notification via Web3Forms
+      const emailPromise = fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          // TODO: Replace with your actual Web3Forms Access Key
           access_key: "b13e4c90-86d0-4cb9-a672-ccd9de5e98a8",
           subject: `New RSVP: ${formData.name} is ${formData.attending === 'yes' ? 'Attending ' + formData.events : 'Not Attending'}`,
           from_name: "Wedding RSVP System",
@@ -35,7 +35,20 @@ const RSVPTab = () => {
         }),
       });
 
-      const result = await response.json();
+      // 2. Save Data to Google Sheets
+      const sheetPromise = fetch("https://script.google.com/macros/s/AKfycbyP57F_SvhA3_qaKI-Ow5dApT0RiN86Mvnf4ym9FcIqvLqIcRMSzgTDWaVi_rs25Rac/exec", {
+        method: "POST",
+        mode: "no-cors", // Prevents strict browser CORS errors
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Execute both simultaneously
+      const [emailResponse] = await Promise.all([emailPromise, sheetPromise]);
+      const result = await emailResponse.json();
+      
       if (result.success) {
         setIsSubmitted(true);
       } else {
