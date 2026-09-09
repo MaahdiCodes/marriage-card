@@ -90,7 +90,7 @@ const RSVPTab = () => {
             className="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-zinc-100"
           >
             <p className="text-center text-sm text-zinc-500 mb-6 font-sans">
-              Kindly respond by October 5, 2026
+              Kindly respond by September 30, 2026
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
