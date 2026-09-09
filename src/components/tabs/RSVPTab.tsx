@@ -12,7 +12,6 @@ const RSVPTab = () => {
     events: 'Both (Oct 20 & 21)',
     accommodation: 'No',
     guests: '1',
-    dietary: '',
     message: ''
   });
 
@@ -169,17 +168,7 @@ const RSVPTab = () => {
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2 font-semibold">Dietary Requirements</label>
-                    <input
-                      type="text"
-                      name="dietary"
-                      value={formData.dietary}
-                      onChange={handleChange}
-                      className="w-full bg-zinc-50 border border-zinc-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-colors"
-                      placeholder="e.g. Vegetarian, Nut Allergy (Optional)"
-                    />
-                  </div>
+
                 </>
               )}
 
